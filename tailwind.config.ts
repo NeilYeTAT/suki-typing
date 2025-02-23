@@ -56,7 +56,10 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+			fontFamily: {
+				wenkai: ['"LXGW WenKai"', 'sans-serif'], // 添加自定义字体
+			},
   	}
   },
   plugins: [require("tailwindcss-animate")],

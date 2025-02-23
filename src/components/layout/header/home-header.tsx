@@ -1,4 +1,4 @@
-import HomeMenuCard from './home-menu-card'
+import HomeMenuCard from './internal/home-menu-card'
 
 const HomeHeader = () => {
   return (
