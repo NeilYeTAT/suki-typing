@@ -1,13 +1,26 @@
 'use client'
 
 import dict from '@dict/jp-test.json'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const questionsArray = dict
 
 const HomeTyping = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [inputValue, setInputValue] = useState('')
+
+  const query = questionsArray[currentQuestionIndex].kana
+
+  useEffect(() => {
+    axios
+      .post('/api/youdao', {
+        q: query,
+      })
+      .then(r => {
+        console.log(r)
+      })
+  }, [currentQuestionIndex])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== ' ') {
