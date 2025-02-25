@@ -1,8 +1,9 @@
 'use client'
 
 import dict from '@dict/jp-test.json'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
+// import { useEffect, useState } from 'react'
+// import axios from 'axios'
 
 const questionsArray = dict
 
@@ -10,17 +11,19 @@ const HomeTyping = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [inputValue, setInputValue] = useState('')
 
-  const query = questionsArray[currentQuestionIndex].kana
+  // const query = questionsArray[currentQuestionIndex].kana
+  // !!! 暂时先不接入语音服务, 后序再接入, 省点成本
+  // TODO: 语音功能接入并且缓存降低成本?
 
-  useEffect(() => {
-    axios
-      .post('/api/youdao', {
-        q: query,
-      })
-      .then(r => {
-        console.log(r)
-      })
-  }, [currentQuestionIndex])
+  // useEffect(() => {
+  //   axios
+  //     .post('/api/youdao', {
+  //       q: query,
+  //     })
+  //     .then(r => {
+  //       console.log(r.data.speakUrl, 'log speak url')
+  //     })
+  // }, [currentQuestionIndex, query])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== ' ') {

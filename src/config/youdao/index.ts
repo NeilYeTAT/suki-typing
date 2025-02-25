@@ -4,6 +4,7 @@ import CryptoJS from 'crypto-js'
 // * 应当在服务端调用, 减少前端展示页面数据处理的复杂度~~
 
 export const YOUDAO_URL = 'https://openapi.youdao.com/api'
+// https://openapi.youdao.com/v2/dict
 
 // * 有道的 应用ID
 export const appKey = process.env.NEXT_PUBLIC_YOUDAO_APP_KEY!
