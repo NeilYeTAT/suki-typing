@@ -1,21 +1,39 @@
 'use client'
 
-import dict from '@dict/jp-test.json'
-import { useState } from 'react'
-// import { useEffect, useState } from 'react'
+import { useDictionaryStore } from '@/hooks/use-dictionary-store'
+import { useEffect, useState } from 'react'
 // import axios from 'axios'
 
-const questionsArray = dict
+interface IDictionary {
+  romaji: string
+  kana: string
+  hiragana: string
+  katakana: string
+}
 
 const HomeTyping = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [inputValue, setInputValue] = useState('')
+  const [questionsArray, setQuestionArray] = useState<IDictionary[]>([])
+  const currentDictionaryUrl = useDictionaryStore(
+    state => state.currentDictionaryUrl,
+  )
 
-  // const query = questionsArray[currentQuestionIndex].kana
+  useEffect(() => {
+    const fetchDictionaryArray = async (url: string) => {
+      const dict = await fetch(url)
+      const dictionary = await dict.json()
+      setQuestionArray(dictionary)
+    }
+
+    fetchDictionaryArray(currentDictionaryUrl)
+  }, [currentDictionaryUrl])
+
   // !!! 暂时先不接入语音服务, 后序再接入, 省点成本
   // TODO: 语音功能接入并且缓存降低成本?
 
   // useEffect(() => {
+  //   const query = questionsArray[currentQuestionIndex]?.kana ?? 'か'
   //   axios
   //     .post('/api/youdao', {
   //       q: query,
@@ -23,7 +41,7 @@ const HomeTyping = () => {
   //     .then(r => {
   //       console.log(r.data.speakUrl, 'log speak url')
   //     })
-  // }, [currentQuestionIndex, query])
+  // }, [currentQuestionIndex, questionsArray])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== ' ') {
