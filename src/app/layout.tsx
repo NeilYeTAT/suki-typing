@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/provider/theme-provider'
+import ModalProvider from '@/provider/modal-provider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`antialiased bg-black text-white font-wenkai`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
+          <ModalProvider />
         </ThemeProvider>
       </body>
     </html>

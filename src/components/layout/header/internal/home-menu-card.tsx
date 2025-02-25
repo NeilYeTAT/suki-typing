@@ -1,18 +1,25 @@
+'use client'
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { useModalStore } from '@/hooks/use-modal-store'
 import { Pause, RotateCcw, Settings } from 'lucide-react'
 
 // TODO: 先不考虑复用, 样式暂无~
 const HomeMenuCard = () => {
+  const onOpen = useModalStore(state => state.onOpen)
+
   return (
     <menu className="flex gap-4 font-semibold text-lg">
       <TooltipProvider skipDelayDuration={1000}>
         <Tooltip>
-          <TooltipTrigger>展示词典名</TooltipTrigger>
+          <TooltipTrigger onClick={() => onOpen('create-dictionary')}>
+            展示词典名
+          </TooltipTrigger>
           <TooltipContent>
             <p>切换词典</p>
           </TooltipContent>
