@@ -1,6 +1,6 @@
 .hg-theme-default {
   /* background-color: #ececec; */
-  background-color: #111827;
+  background-color: #e2e2e2;
   border-radius: 5px;
   box-sizing: border-box;
   font-family: HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue,
@@ -12,11 +12,14 @@
   -moz-user-select: none;
   user-select: none;
   width: 100%;
+  /* background-color: rgb(188, 183, 183); */
 }
 
 .hg-theme-default .hg-button span,
 .hg-theme-default .hg-button span svg {
   pointer-events: none;
+  font-size: 24px;
+  text-transform: uppercase;
 }
 
 .hg-theme-default button.hg-button {
@@ -64,7 +67,7 @@
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
-  height: 40px;
+  height: 64px;
   justify-content: center;
   padding: 5px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
