@@ -1,28 +1,5 @@
 [
-  {
-    "romaji": "jsp-test",
-    "kana": "jp-test",
-    "hiragana": "jp-test",
-    "katakana": "jp-test"
-  },
-  { "romaji": "a", "kana": "あ", "hiragana": "あ", "katakana": "ア" },
-  { "romaji": "i", "kana": "い", "hiragana": "い", "katakana": "イ" },
-  { "romaji": "u", "kana": "う", "hiragana": "う", "katakana": "ウ" },
-  { "romaji": "e", "kana": "え", "hiragana": "え", "katakana": "エ" },
-  { "romaji": "o", "kana": "お", "hiragana": "お", "katakana": "オ" },
-
-  { "romaji": "ka", "kana": "か", "hiragana": "か", "katakana": "カ" },
-  { "romaji": "ki", "kana": "き", "hiragana": "き", "katakana": "キ" },
-  { "romaji": "ku", "kana": "く", "hiragana": "く", "katakana": "ク" },
-  { "romaji": "ke", "kana": "け", "hiragana": "け", "katakana": "ケ" },
-  { "romaji": "ko", "kana": "こ", "hiragana": "こ", "katakana": "コ" },
-
-  { "romaji": "sa", "kana": "さ", "hiragana": "さ", "katakana": "サ" },
-  { "romaji": "shi", "kana": "し", "hiragana": "し", "katakana": "シ" },
-  { "romaji": "su", "kana": "す", "hiragana": "す", "katakana": "ス" },
-  { "romaji": "se", "kana": "せ", "hiragana": "せ", "katakana": "セ" },
-  { "romaji": "so", "kana": "そ", "hiragana": "そ", "katakana": "ソ" },
-
+  { "romaji": "AAA", "kana": "AAA", "hiragana": "AAA", "katakana": "AAA" },
   { "romaji": "ta", "kana": "た", "hiragana": "た", "katakana": "タ" },
   { "romaji": "chi", "kana": "ち", "hiragana": "ち", "katakana": "チ" },
   { "romaji": "tsu", "kana": "つ", "hiragana": "つ", "katakana": "ツ" },

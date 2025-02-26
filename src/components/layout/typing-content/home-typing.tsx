@@ -2,6 +2,7 @@
 
 import { useDictionaryStore } from '@/hooks/use-dictionary-store'
 import { useEffect, useState } from 'react'
+import { dictionaryUrlMap } from '@/config/dict'
 // import axios from 'axios'
 
 interface IDictionary {
@@ -15,8 +16,8 @@ const HomeTyping = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [inputValue, setInputValue] = useState('')
   const [questionsArray, setQuestionArray] = useState<IDictionary[]>([])
-  const currentDictionaryUrl = useDictionaryStore(
-    state => state.currentDictionaryUrl,
+  const currentDictionaryName = useDictionaryStore(
+    state => state.currentDictionaryName,
   )
 
   useEffect(() => {
@@ -26,8 +27,8 @@ const HomeTyping = () => {
       setQuestionArray(dictionary)
     }
 
-    fetchDictionaryArray(currentDictionaryUrl)
-  }, [currentDictionaryUrl])
+    fetchDictionaryArray(dictionaryUrlMap.get(currentDictionaryName)!)
+  }, [currentDictionaryName])
 
   // !!! 暂时先不接入语音服务, 后序再接入, 省点成本
   // TODO: 语音功能接入并且缓存降低成本?
