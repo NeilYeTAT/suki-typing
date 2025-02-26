@@ -79,11 +79,12 @@ const HomeTyping = () => {
   }
 
   return (
-    <main className="bg-slate-800 w-full h-full flex flex-col border border-dashed items-center gap-16 py-12">
-      <h2 className="text-6xl border-b border-dashed border-white">
+    <main className="w-full h-full flex flex-col border border-dashed items-center gap-16 pt-52 rounded-lg">
+      <h2 className="text-8xl border-b border-dashed border-white">
         {currentQuestionIndex < questionsArray.length ? (
           questionsArray[currentQuestionIndex].hiragana
         ) : (
+          // TODO: 完成之后完结撒花, 并且设置指针的状态
           <p>Over~</p>
         )}
       </h2>
@@ -93,15 +94,11 @@ const HomeTyping = () => {
           <input
             type="text"
             value={inputValue}
-            className="appearance-none size-full text-3xl outline-none absolute top-0 left-0 px-2 bg-transparent border-b border-pink-300"
+            className="appearance-none size-full text-3xl outline-none absolute top-0 left-0 px-2 bg-transparent border-b-2 border-pink-100 text-center"
             onChange={handleInputChange}
             onKeyDown={handleSubmitShortcut}
           />
         </section>
-
-        <button onClick={() => setCurrentQuestionIndex(pre => pre + 1)}>
-          next
-        </button>
       </main>
       {/* 键盘显示区域提示 */}
       <section>

@@ -6,19 +6,26 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { useDictionaryStore } from '@/hooks/use-dictionary-store'
 import { useModalStore } from '@/hooks/use-modal-store'
 import { Pause, RotateCcw, Settings } from 'lucide-react'
 
 // TODO: 先不考虑复用, 样式暂无~
 const HomeMenuCard = () => {
   const onOpen = useModalStore(state => state.onOpen)
+  const currentDictionaryName = useDictionaryStore(
+    state => state.currentDictionaryName,
+  )
 
   return (
     <menu className="flex gap-4 font-semibold text-lg">
       <TooltipProvider skipDelayDuration={1000}>
         <Tooltip>
-          <TooltipTrigger onClick={() => onOpen('create-dictionary')}>
-            展示词典名
+          <TooltipTrigger
+            onClick={() => onOpen('create-dictionary')}
+            className="hover:text-pink-500 duration-100"
+          >
+            正在学 {currentDictionaryName}
           </TooltipTrigger>
           <TooltipContent>
             <p>切换词典</p>
@@ -27,7 +34,7 @@ const HomeMenuCard = () => {
 
         <Tooltip>
           <TooltipTrigger>
-            <Pause className="size-5" />
+            <Pause className="size-5 hover:text-pink-500 duration-100" />
           </TooltipTrigger>
           <TooltipContent>
             <p>暂停</p>
@@ -36,7 +43,7 @@ const HomeMenuCard = () => {
 
         <Tooltip>
           <TooltipTrigger>
-            <RotateCcw className="size-5" />
+            <RotateCcw className="size-5 hover:text-pink-500 duration-100" />
           </TooltipTrigger>
           <TooltipContent>
             <p>重新开始</p>
@@ -45,7 +52,7 @@ const HomeMenuCard = () => {
 
         <Tooltip>
           <TooltipTrigger>
-            <Settings className="size-5" />
+            <Settings className="size-5 hover:text-pink-500 duration-100" />
           </TooltipTrigger>
           <TooltipContent>
             <p>设置</p>

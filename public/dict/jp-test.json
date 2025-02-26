@@ -1,10 +1,4 @@
 [
-  {
-    "romaji": "jsp-test",
-    "kana": "jp-test",
-    "hiragana": "jp-test",
-    "katakana": "jp-test"
-  },
   { "romaji": "a", "kana": "あ", "hiragana": "あ", "katakana": "ア" },
   { "romaji": "i", "kana": "い", "hiragana": "い", "katakana": "イ" },
   { "romaji": "u", "kana": "う", "hiragana": "う", "katakana": "ウ" },
