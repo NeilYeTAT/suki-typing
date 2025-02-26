@@ -2,6 +2,7 @@
 
 import { useDictionaryStore } from '@/hooks/use-dictionary-store'
 import { useEffect, useState } from 'react'
+import { useLocalStorage } from '@uidotdev/usehooks'
 import { dictionaryUrlMap } from '@/config/dict'
 // import axios from 'axios'
 
@@ -19,12 +20,25 @@ const HomeTyping = () => {
   const currentDictionaryName = useDictionaryStore(
     state => state.currentDictionaryName,
   )
+  // ! 这里初次渲染会报错, GET http://localhost:3000/ 500 (Internal Server Error)
+  // ! Error: useLocalStorage is a client-only hook
+  const [localDictionary, saveLocalDictionary] = useLocalStorage(
+    `local_dict_${currentDictionaryName}`,
+    null,
+  )
 
   useEffect(() => {
     const fetchDictionaryArray = async (url: string) => {
-      const dict = await fetch(url)
-      const dictionary = await dict.json()
-      setQuestionArray(dictionary)
+      // * 先从本地加载
+      if (localDictionary) {
+        setQuestionArray(localDictionary)
+      } else {
+        // * 从网络获取
+        const dict = await fetch(url)
+        const dictionary = await dict.json()
+        setQuestionArray(dictionary)
+        saveLocalDictionary(dictionary)
+      }
     }
 
     fetchDictionaryArray(dictionaryUrlMap.get(currentDictionaryName)!)
