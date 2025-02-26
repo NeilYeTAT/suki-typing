@@ -1,6 +1,10 @@
 import { create } from 'zustand'
 
-type IModalType = 'create-dictionary'
+type IModalType =
+  | 'create-dictionary'
+  | 'pause-typing'
+  | 'restart-typing'
+  | 'setting'
 
 interface IModalStore {
   isOpen: boolean
@@ -19,7 +23,7 @@ export const useModalStore = create<IModalStore>()(set => ({
   modalName: null,
   modalData: undefined,
 
-  onOpen: (modalName, modalData) =>
+  onOpen: (modalName, modalData?) =>
     set({
       isOpen: true,
       modalName,

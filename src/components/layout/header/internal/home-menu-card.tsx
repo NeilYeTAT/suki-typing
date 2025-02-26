@@ -33,7 +33,7 @@ const HomeMenuCard = () => {
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger onClick={() => onOpen('pause-typing')}>
             <Pause className="size-5 hover:text-pink-500 duration-100" />
           </TooltipTrigger>
           <TooltipContent>
@@ -42,7 +42,7 @@ const HomeMenuCard = () => {
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger onClick={() => onOpen('restart-typing')}>
             <RotateCcw className="size-5 hover:text-pink-500 duration-100" />
           </TooltipTrigger>
           <TooltipContent>
@@ -51,7 +51,7 @@ const HomeMenuCard = () => {
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger onClick={() => onOpen('setting')}>
             <Settings className="size-5 hover:text-pink-500 duration-100" />
           </TooltipTrigger>
           <TooltipContent>

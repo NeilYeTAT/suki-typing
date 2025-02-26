@@ -8,27 +8,26 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useModalStore } from '@/hooks/use-modal-store'
-import ToggleDictionaryCard from './components/create-dictionary-modal/toggle-dictionary-card'
 
-const DictionaryModal = () => {
+const PauseTypingModal = () => {
   const isOpen = useModalStore(state => state.isOpen)
   const onClose = useModalStore(state => state.onClose)
   const modalName = useModalStore(state => state.modalName)
 
-  const isModalOpen = isOpen && modalName === 'create-dictionary'
+  const isModalOpen = isOpen && modalName === 'pause-typing'
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent className="min-w-96">
         <DialogHeader>
-          <DialogTitle className="mx-auto">切换词典</DialogTitle>
+          <DialogTitle className="mx-auto">暂停页面</DialogTitle>
           <DialogDescription>{/* 不写报警告, 我强迫症 */}</DialogDescription>
         </DialogHeader>
-        {/* 切换词典 */}
-        <ToggleDictionaryCard />
+        {/* 暂停区域~ */}
+        <p>暂停~</p>
       </DialogContent>
     </Dialog>
   )
 }
 
-export default DictionaryModal
+export default PauseTypingModal
