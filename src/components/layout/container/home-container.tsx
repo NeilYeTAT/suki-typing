@@ -4,6 +4,7 @@ import { useDictionaryStore } from '@/hooks/use-dictionary-store'
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from '@uidotdev/usehooks'
 import { dictionaryUrlMap } from '@/config/dict'
+import VirtualKeyboard from './internal/virtual-keyboard'
 // import axios from 'axios'
 
 interface IDictionary {
@@ -13,7 +14,7 @@ interface IDictionary {
   katakana: string
 }
 
-const HomeTyping = () => {
+const HomeContainer = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [inputValue, setInputValue] = useState('')
   const [questionsArray, setQuestionArray] = useState<IDictionary[]>([])
@@ -101,11 +102,9 @@ const HomeTyping = () => {
         </section>
       </main>
       {/* 键盘显示区域提示 */}
-      <section>
-        <div>键盘显示区域</div>
-      </section>
+      <VirtualKeyboard />
     </main>
   )
 }
 
-export default HomeTyping
+export default HomeContainer

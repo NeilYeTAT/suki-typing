@@ -1,11 +1,11 @@
 import HomeHeader from '@/components/layout/header/home-header'
-import HomeTyping from '@/components/layout/typing-content/home-typing'
+import HomeContainer from '@/components/layout/container/home-container'
 
 const HomePage = () => {
   return (
     <main className="w-full min-h-screen mx-auto flex flex-col items-center max-w-7xl gap-4 pb-4">
       <HomeHeader />
-      <HomeTyping />
+      <HomeContainer />
     </main>
   )
 }
