@@ -2,9 +2,9 @@
 
 import { useDictionaryStore } from '@/hooks/use-dictionary-store'
 import { useEffect, useState } from 'react'
-import { useLocalStorage } from '@uidotdev/usehooks'
 import { dictionaryUrlMap } from '@/config/dict'
 import VirtualKeyboard from './internal/virtual-keyboard'
+import { useKeyPress, useLocalStorageState } from 'ahooks'
 // import axios from 'axios'
 
 interface IDictionary {
@@ -21,29 +21,35 @@ const HomeContainer = () => {
   const currentDictionaryName = useDictionaryStore(
     state => state.currentDictionaryName,
   )
-  // ! 这里初次渲染会报错, GET http://localhost:3000/ 500 (Internal Server Error)
-  // ! Error: useLocalStorage is a client-only hook
-  const [localDictionary, saveLocalDictionary] = useLocalStorage(
-    `local_dict_${currentDictionaryName}`,
-    null,
-  )
+  const [localDictionary, setLocalDictionary] = useLocalStorageState<
+    IDictionary[]
+  >(`${currentDictionaryName}_dict_local`)
 
+  // 键盘事件 keyCode 别名 https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useKeyPress/index.ts#L21
+  useKeyPress('space', () => {
+    submitAnswer()
+  })
+  useKeyPress('enter', () => {
+    submitAnswer()
+  })
+
+  // TODO: 应该有加载骨架屏
   useEffect(() => {
     const fetchDictionaryArray = async (url: string) => {
       // * 先从本地加载
       if (localDictionary) {
-        setQuestionArray(localDictionary)
+        setQuestionArray(pre => pre)
       } else {
         // * 从网络获取
         const dict = await fetch(url)
         const dictionary = await dict.json()
         setQuestionArray(dictionary)
-        saveLocalDictionary(dictionary)
+        setLocalDictionary(dictionary)
       }
     }
 
     fetchDictionaryArray(dictionaryUrlMap.get(currentDictionaryName)!)
-  }, [currentDictionaryName])
+  }, [currentDictionaryName, localDictionary])
 
   // !!! 暂时先不接入语音服务, 后序再接入, 省点成本
   // TODO: 语音功能接入并且缓存降低成本?
@@ -60,9 +66,7 @@ const HomeContainer = () => {
   // }, [currentQuestionIndex, questionsArray])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== ' ') {
-      setInputValue(e.target.value)
-    }
+    setInputValue(e.target.value)
   }
 
   const submitAnswer = () => {
@@ -71,12 +75,6 @@ const HomeContainer = () => {
       setCurrentQuestionIndex(pre => pre + 1)
     }
     setInputValue('')
-  }
-
-  const handleSubmitShortcut = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === ' ' || e.key === 'Enter') {
-      submitAnswer()
-    }
   }
 
   return (
@@ -97,7 +95,6 @@ const HomeContainer = () => {
             value={inputValue}
             className="appearance-none size-full text-3xl outline-none absolute top-0 left-0 px-2 bg-transparent border-b-2 border-pink-100 text-center"
             onChange={handleInputChange}
-            onKeyDown={handleSubmitShortcut}
           />
         </section>
       </main>
