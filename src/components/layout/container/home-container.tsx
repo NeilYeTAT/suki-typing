@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { dictionaryUrlMap } from '@/config/dict'
 import VirtualKeyboard from './internal/virtual-keyboard'
 import { useKeyPress, useLocalStorageState } from 'ahooks'
+import { Button } from '@/components/ui/button'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 // import axios from 'axios'
 
 interface IDictionary {
@@ -17,7 +19,7 @@ interface IDictionary {
 const HomeContainer = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [inputValue, setInputValue] = useState('')
-  const [questionsArray, setQuestionArray] = useState<IDictionary[]>([])
+  const [questionArray, setQuestionArray] = useState<IDictionary[]>([])
   const currentDictionaryName = useDictionaryStore(
     state => state.currentDictionaryName,
   )
@@ -38,7 +40,7 @@ const HomeContainer = () => {
     const fetchDictionaryArray = async (url: string) => {
       // * 先从本地加载
       if (localDictionary) {
-        setQuestionArray(pre => pre)
+        setQuestionArray(localDictionary)
       } else {
         // * 从网络获取
         const dict = await fetch(url)
@@ -69,10 +71,23 @@ const HomeContainer = () => {
     setInputValue(e.target.value)
   }
 
+  const goToPreviousQuestion = () => {
+    if (currentQuestionIndex !== 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1)
+    }
+  }
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex !== questionArray.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
+    }
+  }
+
   const submitAnswer = () => {
-    const ok = questionsArray[currentQuestionIndex].romaji === inputValue.trim()
+    const ok =
+      currentQuestionIndex < questionArray.length &&
+      questionArray[currentQuestionIndex].romaji === inputValue.trim()
     if (ok) {
-      setCurrentQuestionIndex(pre => pre + 1)
+      goToNextQuestion()
     }
     setInputValue('')
   }
@@ -80,24 +95,38 @@ const HomeContainer = () => {
   return (
     <main className="w-full h-full flex flex-col border border-dashed items-center gap-16 pt-52 rounded-lg">
       <h2 className="text-8xl border-b border-dashed border-white">
-        {currentQuestionIndex < questionsArray.length ? (
-          questionsArray[currentQuestionIndex].hiragana
+        {currentQuestionIndex < questionArray.length ? (
+          questionArray[currentQuestionIndex].hiragana
         ) : (
-          // TODO: 完成之后完结撒花, 并且设置指针的状态
+          // TODO: 完成之后完结撒花
           <p>Over~</p>
         )}
       </h2>
       {/* 输入框 */}
-      <main className="flex flex-col">
-        <section className="relative border-b border-dashed w-36 h-16">
-          <input
-            type="text"
-            value={inputValue}
-            className="appearance-none size-full text-3xl outline-none absolute top-0 left-0 px-2 bg-transparent border-b-2 border-pink-100 text-center"
-            onChange={handleInputChange}
-          />
-        </section>
-      </main>
+      <section className="flex items-end gap-8">
+        <ChevronLeft
+          className="size-12 rounded-md hover:bg-slate-900 duration-200 cursor-pointer"
+          onClick={goToPreviousQuestion}
+        />
+        {currentQuestionIndex < questionArray.length ? (
+          <main className="flex flex-col">
+            <section className="relative border-b border-dashed w-36 h-16">
+              <input
+                type="text"
+                value={inputValue}
+                className="appearance-none size-full text-3xl outline-none absolute top-0 left-0 px-2 bg-transparent border-b-2 border-pink-100 text-center"
+                onChange={handleInputChange}
+              />
+            </section>
+          </main>
+        ) : (
+          <Button onClick={() => setCurrentQuestionIndex(0)}>Restart</Button>
+        )}
+        <ChevronRight
+          className="size-12 rounded-md hover:bg-slate-900 duration-200 cursor-pointer"
+          onClick={goToNextQuestion}
+        />
+      </section>
       {/* 键盘显示区域提示 */}
       <VirtualKeyboard />
     </main>
